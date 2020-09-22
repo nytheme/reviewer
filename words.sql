@@ -1,0 +1,18 @@
+create table words (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  word VARCHAR(255) UNIQUE,
+  part_of_speach TINYINT UNSIGNED, /*品詞*/
+  japanese TEXT,
+  category TINYINT UNSIGNED, /* -128 から 127 unsigned で 0 から 255 */
+  memo TEXT,
+  next_date DATE, /* フォーマット ： 'YYYY-MM-DD' */
+  correct TINYINT UNSIGNED
+);
+
+ALTER TABLE words ADD updated DATE;
+
+insert into words (word, part_of_speach, japanese, category, memo, next_date, correct) values
+-- part_of_speach　１：名詞　２：動詞　３：形容詞　４：try {副詞　５：句動詞　９：他
+-- category　１：基礎　２：日常　３：会話　４：文学　５：経済
+
+('whatsoever', 4, '[否定を表す名刺の前で]まったく（〜ない）', 3, 'book girl', '2020-09-15', 0); 
