@@ -13,7 +13,7 @@
 			let memo = $('#memo').val();
 			let registerd = $('#registerd').val();
 
-			$.post('Controller.php', {
+			$.post('/../lib/Controller.php', {
 				word: word,
 				part_of_speach: part_of_speach,
 				japanese: japanese,
@@ -52,7 +52,7 @@
 			let memo = $('#memo').val();
 			let revise = $('#revise').val();
 
-			$.post('Controller.php', {
+			$.post('/../lib/Controller.php', {
 				wordId: wordId,
 				word: word,
 				part_of_speach: part_of_speach,

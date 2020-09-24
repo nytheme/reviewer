@@ -11,6 +11,14 @@
 		next.classList.toggle('disp-none');
 	}
 
+	$('.aa').on('click', function() {
+		let word = $(this).data('word');
+		let u = new SpeechSynthesisUtterance();
+    u.lang = 'en-US';
+    u.text = word;
+    speechSynthesis.speak(u);
+	});
+
 {
 	function correct(id, correct_data) {
 		//ajaxを取得

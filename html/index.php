@@ -38,6 +38,7 @@ foreach($words as $word) {
 	echo "<tr id='words'>";
 
 		echo "<td class='right_side'><a href='revision.php?id=".$word->id."'><button><i class='fas fa-pen'></i></button></a></td>";
+		echo "<td class='aa' data-word='$word->word'><button><i class='fas fa-volume-up'></i></i></button></td>";
 		echo "<td><button class='correct' data-id='".$word->id."' data-correct='".$word->correct."'><i class='far fa-circle'></i></button></td>";
 		echo "<td><button class='incorrect' data-id='".$word->id."' data-correct='".$word->correct."'><i class='fas fa-times'></i></button></td>";
 		
