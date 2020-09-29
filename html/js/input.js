@@ -1,6 +1,8 @@
 'use strict';
 
 {
+	$('#word').focus();
+
 	$('#register').on('submit', function() {
 		//フォームに入力したテキストを変数に格納
 		let beforeCheckWord = $('#word').val();
@@ -23,7 +25,7 @@
 				mode: 'register'
 			}, function() {
 				// フォームのクリア
-				$("#word").val("");
+				$("#word").val("").focus();
 				$("#japanese").val("");
 				$("#memo").val("");
 				console.log('register');

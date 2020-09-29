@@ -8,22 +8,23 @@
 		<div id="errorMessage"></div>
 	品詞　：
 		<select id="part_of_speach">
-			<option value="1" selected>名詞</option>
-			<option value="2">動詞</option>
-			<option value="3">形容詞</option>
-			<option value="4">副詞</option>
-			<option value="5">句動詞</option>
-			<option value="9">その他</option>
+			<option value="1" selected>noun</option>
+			<option value="2">verb</option>
+			<option value="3">adjective</option>
+			<option value="4">adverb</option>
+			<option value="5">phrasal</option>
+			<option value="9">others</option>
 		</select><br/>
 	日本語：
 		<input type="text" id="japanese" required><br/>
 	種類　：
 		<select id="category">
-			<option value="1" selected>基礎</option>
-			<option value="2">日常</option>
-			<option value="3">会話</option>
-			<option value="4">文学</option>
-			<option value="5">経済</option>
+			<option value="1" selected>Daily</option>
+			<option value="2">Conversation</option>
+			<option value="3">Academic</option>
+			<option value="4">Writing</option>
+			<option value="5">Economy</option>
+			<option value="6">Tech</option>
 		</select><br/>
 	メモ　：
 		<input type="text" id="memo"><br/>

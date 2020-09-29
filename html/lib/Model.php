@@ -29,11 +29,17 @@ class Model {
 		$today = date('Y-m-d');
 
 		if (isset($_GET['page'])) {
-			$start = ($_GET['page'] -1) * ($w_p_page +1);
-			$end = $start + $w_p_page;
-			$stmt = $this->_db->query("SELECT * from words WHERE next_date <= '".$today."' ORDER BY id DESC LIMIT $start, $end ");
+			if ($_GET['page'] == 1) {
+				$start = 0;
+				$end = $w_p_page;
+			} else {
+				$end = $_GET['page'] * $w_p_page;
+				$start = $end  - ($w_p_page -1);
+			}
+
+			$stmt = $this->_db->query("SELECT * from words WHERE next_date <= '".$today."' ORDER BY id DESC LIMIT $start, $w_p_page");
 		} else {
-			$stmt = $this->_db->query("SELECT * from words WHERE next_date <= '".$today."' ORDER BY id DESC LIMIT 0, $w_p_page ");
+			$stmt = $this->_db->query("SELECT * from words WHERE next_date <= '".$today."' ORDER BY id DESC LIMIT 0, $w_p_page");
 		}
 		//fetchAll(\PDO::FETCH_OBJ)でオブジェクト形式で返す
 		return $stmt->fetchAll(\PDO::FETCH_OBJ);
