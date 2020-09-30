@@ -7,7 +7,11 @@ $reviewer = new \Reviewer\Model();
 //POSTされたときだけ処理する
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	try {
-		$reviewer->post();
+		// $reviewer->post();
+		$res = $reviewer->post();
+		//「json形式のデータ」と指定しTodo.phpからの返り値をヘッダーに格納
+		header('Content-Type: application/json');
+		echo json_encode($res);
 		exit;
 	} catch (Exception $e) {
 		//SERVER_PROTOCOL で HTTP/1.0 や HTTP/1.1 を返す

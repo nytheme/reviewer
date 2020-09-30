@@ -1,7 +1,7 @@
 <?php
 
 namespace Reviewer;
-use Reviewer\Model;
+// use Reviewer\Model;
 
 session_start();
 
@@ -52,7 +52,7 @@ class Model {
 		$stmt = $this->_db->query("SELECT COUNT(id) from words WHERE next_date <= '".$today."' ");
 		$pages = ceil($stmt->fetch(\PDO::FETCH_COLUMN) / $w_p_page);
 
-		for ($i=1; $i<=$pages; $i++) {
+		for ($i=1; $i<$pages; $i++) {
 			if ($_GET['page'] == $i) {
 				echo "<a href=?page=".$i." style='font-weight:bold;color:blue;'>".$i."</a>";
 
@@ -75,7 +75,7 @@ class Model {
 	//本日の単語
 	public function getToday() {
 		$today = date('Y-m-d');
-		$stmt = $this->_db->query("SELECT * from words WHERE updated = '".$today."'");
+		$stmt = $this->_db->query("SELECT * from words WHERE updated = '".$today."' ORDER BY id DESC");
 		return $stmt->fetchAll(\PDO::FETCH_OBJ);
 	}
 
@@ -90,7 +90,7 @@ class Model {
 				$this->incorrect();
 				break;
 			case 'register':
-				$this->registration();
+				return $this->registration();
 				break;
 			case 'revise':
 				$this->revision();
@@ -121,9 +121,9 @@ class Model {
 			$date = date('Y-m-d', strtotime("+14 day"));
 			$stmt = $this->_db->query("UPDATE words SET correct = correct +1, next_date = '".$date."', updated = '".$today."' WHERE id = $id");
 
-		} elseif ($correct_data == 10) {
+		} elseif ($correct_data == 9) {
 			$date = date('Y-m-d');
-			$stmt = $this->_db->query("UPDATE words SET next_date = '".$date."' WHERE id = $id");
+			$stmt = $this->_db->query("UPDATE words SET next_date = '".$date."' next_date = NULL WHERE id = $id");
 		}
 
 		$stmt->execute();
@@ -152,25 +152,43 @@ class Model {
 
 	//単語登録
 	private function registration() {
-		// $columns = "(word,part_of_speach,japanese,category,memo,next_date,correct)";
-		// $values = "(:word, :part_of_speach, :japanese, :category, :memo, :next_date, :correct)";
+		//登録単語の重複チェック
+		$pre_sql = 'SELECT word FROM words WHERE word = "'.$_POST['word'].'"';
+		$pre_stmt = $this->_db->prepare($pre_sql);
+		$pre_stmt->execute();
+		$result = $pre_stmt->fetch();
 
-		$sql = 'INSERT INTO words (word, part_of_speach,japanese,category,memo,next_date,correct,updated) VALUES (:word, :part_of_speach, :japanese, :category, :memo, :next_date, :correct, :updated)';
+		if ($result > 0) {
+			 return [
+				 'message' => 'すでに登録している単語です',
+				 'msg' => 1
+			 ];
 
-		$stmt = $this->_db->prepare($sql);
+		} else {
+			//重複がなければ単語を登録
+			$sql = 'INSERT INTO words (word, part_of_speach,japanese,category,memo,next_date,correct,updated) VALUES (:word, :part_of_speach, :japanese, :category, :memo, :next_date, :correct, :updated)';
 
-		$stmt->execute([
-			':word' => $_POST['word'],
-			':part_of_speach' => $_POST['part_of_speach'],
-			':japanese' => $_POST['japanese'],
-			':category' => $_POST['category'],
-			':memo' => $_POST['memo'],
-			':next_date' => date('Y-m-d'),
-			':correct' => 0,
-			':updated' => date('Y-m-d')
-		]);
+			$stmt = $this->_db->prepare($sql);
 
-		$stmt = null;
+			$stmt->execute([
+				':word' => $_POST['word'],
+				':part_of_speach' => $_POST['part_of_speach'],
+				':japanese' => $_POST['japanese'],
+				':category' => $_POST['category'],
+				':memo' => $_POST['memo'],
+				':next_date' => date('Y-m-d'),
+				':correct' => 0,
+				':updated' => date('Y-m-d')
+			]);
+
+			$stmt = null;
+			$_POST = array();
+			unset($_POST);
+			return [
+				'message' => '登録しました',
+				'msg' => 0
+			];
+		}
 	}
 
 	//単語修正

@@ -43,6 +43,9 @@ foreach($words as $word) {
 		echo h($word->japanese) . "</td>";
 		// echo "<td>" . $word->category . "</td>";
 		// echo "<td>" . $word->memo . "</td>";
+		echo "<td class='right_side'>" . $word->next_date . "</td>";
+		echo "<td class='right_side'>" . $word->correct . "</td>";
+		echo "<td class='right_side'>" . $word->updated . "</td>";
 		
 	echo "</tr>";
 

@@ -23,12 +23,19 @@
 				memo: memo,
 				registerd: registerd,
 				mode: 'register'
-			}, function() {
-				// フォームのクリア
-				$("#word").val("").focus();
-				$("#japanese").val("");
-				$("#memo").val("");
-				console.log('register');
+			}, function(res) {
+				if (res.msg == 1) { //単語が重複している場合
+					document.getElementById('errorMessage').textContent = res.message;
+				
+				} else {
+					// フォームのクリア
+					$("#word").val("").focus();
+					$("#japanese").val("");
+					$("#memo").val("");
+					document.getElementById('errorMessage').textContent = res.message;
+				
+					console.log(res.message);
+				}
 			});
 			return false; //画面遷移を防ぐ
 
