@@ -11,6 +11,8 @@
 			let word = beforeCheckWord;
 			let part_of_speach = $('#part_of_speach').val();
 			let japanese = $('#japanese').val();
+			let part_of_speach2 = $('#part_of_speach2').val();
+			let japanese2 = $('#japanese2').val();
 			let category = $('#category').val();
 			let memo = $('#memo').val();
 			let registerd = $('#registerd').val();
@@ -19,6 +21,8 @@
 				word: word,
 				part_of_speach: part_of_speach,
 				japanese: japanese,
+				part_of_speach2: part_of_speach2,
+				japanese2: japanese2,
 				category: category,
 				memo: memo,
 				registerd: registerd,
@@ -31,6 +35,7 @@
 					// フォームのクリア
 					$("#word").val("").focus();
 					$("#japanese").val("");
+					$("#japanese2").val("");
 					$("#memo").val("");
 					document.getElementById('errorMessage').textContent = res.message;
 				
@@ -57,6 +62,8 @@
 			let word = beforeCheckWord;
 			let part_of_speach = $('#part_of_speach').val();
 			let japanese = $('#japanese').val();
+			let part_of_speach2 = $('#part_of_speach2').val();
+			let japanese2 = $('#japanese2').val();
 			let category = $('#category').val();
 			let memo = $('#memo').val();
 			let revise = $('#revise').val();
@@ -66,6 +73,8 @@
 				word: word,
 				part_of_speach: part_of_speach,
 				japanese: japanese,
+				part_of_speach2: part_of_speach2,
+				japanese2: japanese2,
 				category: category,
 				memo: memo,
 				revise: revise,

@@ -18,29 +18,44 @@ $i = 1;
 foreach($words as $word) {
 	echo "<tr id='words'>";
 
-		// echo "<td class='right_side'><a href='revision.php?id=".$word->id."'><button>修正</button></a></td>";
-		// echo "<td><button class='correct' data-id='".$word->id."' data-correct='".$word->correct."'>正解</button></td>";
-		// echo "<td><button class='incorrect' data-id='".$word->id."' data-correct='".$word->correct."'>不正解</button></td>";
-		
+		echo "<td class='right_side'><a href='revision.php?id=".$word->id."'><button><i class='fas fa-pen'></i></button></a></td>";
+		echo "<td class='speach' data-word='$word->word'><button><i class='fas fa-volume-up'></i></i></button></td>";
+			
 		echo "<th class='jap_".$i."' onclick='openAnswer(this);return false;'>" . h($word->word) . "</th>";
 
 		echo "<td class='disp-none'>";
 
 		if ($word->part_of_speach == 1) {
-			echo "(名)";
+			echo "【名】 ";
 		} elseif ($word->part_of_speach == 2) {
-			echo "(動)";
+			echo "【動】 ";
 		} elseif ($word->part_of_speach == 3) {
-			echo "(形)";
+			echo "【形】 ";
 		} elseif ($word->part_of_speach == 4) {
-			echo "(副)";
+			echo "【副】 ";
 		} elseif ($word->part_of_speach == 5) {
-			echo "(句)";
+			echo "【句】 ";
 		} elseif ($word->part_of_speach == 9) {
-			echo "(他)";
+			echo "【他】 ";
 		}
+		echo h($word->japanese);
 
-		echo h($word->japanese) . "</td>";
+		if ($word->part_of_speach2 == 1) {
+			echo "【名】 ";
+		} elseif ($word->part_of_speach2 == 2) {
+			echo "【動】 ";
+		} elseif ($word->part_of_speach2 == 3) {
+			echo "【形】 ";
+		} elseif ($word->part_of_speach2 == 4) {
+			echo "【副】 ";
+		} elseif ($word->part_of_speach2 == 5) {
+			echo "【句】 ";
+		} elseif ($word->part_of_speach2 == 9) {
+			echo "【他】 ";
+		}
+		echo h($word->japanese2);
+
+		echo "</td>";
 		// echo "<td>" . $word->category . "</td>";
 		// echo "<td>" . $word->memo . "</td>";
 		echo "<td class='right_side'>" . $word->next_date . "</td>";

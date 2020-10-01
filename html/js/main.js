@@ -11,7 +11,7 @@
 		next.classList.toggle('disp-none');
 	}
 
-	$('.aa').on('click', function() {
+	$('.speach').on('click', function() {
 		let word = $(this).data('word');
 		let u = new SpeechSynthesisUtterance();
     u.lang = 'en-US';

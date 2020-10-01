@@ -11,7 +11,10 @@
 </head>
 <body>
   <header>
-    <a href="index.php">home</a>
-  　<a href="input.php">単語登録</a>
-    <a href="today.php">本日の単語</a>
+    <ul>
+      <li><a <?php if($_SERVER['REQUEST_URI'] === '/index.php') {echo 'class="thisURI"';} ?> href="index.php">Home</a></li>
+      <li><a <?php if($_SERVER['REQUEST_URI'] === '/input.php') {echo 'class="thisURI"';} ?> href="input.php">Registration</a></li>
+      <li><a <?php if($_SERVER['REQUEST_URI'] === '/today.php') {echo 'class="thisURI"';} ?>href="today.php">Today's words</a></li>
+      <li><a <?php if($_SERVER['REQUEST_URI'] === '/search.php') {echo 'class="thisURI"';} ?>href="search.php">Search</a></li>
+    </ul>
   </header>
