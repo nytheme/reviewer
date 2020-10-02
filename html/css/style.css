@@ -67,9 +67,7 @@ th:hover {
 form {
 	margin-left: 3em;
 }
-.flex {
-	display: flex;
-}
+
 #word {
 	font-size: 1em;
 	/* margin-bottom: 1em; */
@@ -98,10 +96,26 @@ textarea {
 	color: red;
 }
 
-/* table {
-	width: 100%;
-} */
-/* .right_side {
-	display: flex;
-	justify-content: flex-end
-} */
+#searched_word {
+	margin-left: 3em;
+}
+
+#searched_word span{
+	font-weight: bold;
+}
+#serchRevisionBtn a {
+	color:black;
+	text-decoration: none;
+}
+
+.word_disp-none {
+	display: none;
+}
+
+#incorrecr_today:hover {
+	cursor: pointer;
+}
+
+#correcr_today:hover {
+	cursor: pointer;
+}

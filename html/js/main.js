@@ -19,6 +19,17 @@
     speechSynthesis.speak(u);
 	});
 
+	function switchShowWords() {
+		let target = document.querySelectorAll('.today_correct');
+		//querySelectorAll()で返ってくるNodeListオブジェクトは
+		//単純な配列ではないので for でこのように書いた
+		for (let i = 0; i < target.length; i++){
+			target[i].classList.toggle('word_disp-none');
+		}
+		document.getElementById('incorrecr_today').classList.toggle('word_disp-none');
+		document.getElementById('correcr_today').classList.toggle('word_disp-none');
+	}
+
 {
 	function correct(id, correct_data) {
 		//ajaxを取得

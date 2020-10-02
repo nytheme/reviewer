@@ -31,10 +31,10 @@ class Model {
 		if (isset($_GET['page'])) {
 			if ($_GET['page'] == 1) {
 				$start = 0;
-				$end = $w_p_page;
+				$end = $w_p_page -1;
 			} else {
-				$end = $_GET['page'] * $w_p_page;
-				$start = $end  - ($w_p_page -1);
+				$end = ($_GET['page'] * $w_p_page) -1;
+				$start = ($_GET['page'] -1) * $w_p_page;
 			}
 
 			$stmt = $this->_db->query("SELECT * from words WHERE next_date <= '".$today."' ORDER BY id DESC LIMIT $start, $w_p_page");
@@ -47,12 +47,11 @@ class Model {
 
 	//ページネーション
 	public function pagenation() {
-		$w_p_page = $this->_words_per_page;
 		$today = date('Y-m-d');
 		$stmt = $this->_db->query("SELECT COUNT(id) from words WHERE next_date <= '".$today."' ");
-		$pages = ceil($stmt->fetch(\PDO::FETCH_COLUMN) / $w_p_page);
+		$pages = ceil($stmt->fetch(\PDO::FETCH_COLUMN) / $this->_words_per_page);
 
-		for ($i=1; $i<$pages; $i++) {
+		for ($i=1; $i<=$pages; $i++) {
 			if ($_GET['page'] == $i) {
 				echo "<a href=?page=".$i." style='font-weight:bold;color:blue;'>".$i."</a>";
 
@@ -76,6 +75,12 @@ class Model {
 	public function getToday() {
 		$today = date('Y-m-d');
 		$stmt = $this->_db->query("SELECT * from words WHERE updated = '".$today."' ORDER BY id DESC");
+		return $stmt->fetchAll(\PDO::FETCH_OBJ);
+	}
+
+	//検索ページ用に一件だけ表示
+	public function searchWord($word) {
+		$stmt = $this->_db->query("SELECT * from words WHERE word = '$word'");
 		return $stmt->fetchAll(\PDO::FETCH_OBJ);
 	}
 
@@ -107,23 +112,23 @@ class Model {
 
 		if ($correct_data == 0 || $correct_data == 2) {
 			$date = date('Y-m-d', strtotime("+1 day"));
-			$stmt = $this->_db->query("UPDATE words SET correct = correct +1, next_date = '".$date."', updated = '".$today."' WHERE id = $id");
+			$stmt = $this->_db->query("UPDATE words SET correct = correct +1, next_date = '".$date."', updated = '".$today."', answer = 0 WHERE id = $id");
 
 		} elseif ($correct_data == 4) {
 			$date = date('Y-m-d', strtotime("+3 day"));
-			$stmt = $this->_db->query("UPDATE words SET correct = correct +1, next_date = '".$date."', updated = '".$today."' WHERE id = $id");
+			$stmt = $this->_db->query("UPDATE words SET correct = correct +1, next_date = '".$date."', updated = '".$today."', answer = 0 WHERE id = $id");
 
 		} elseif ($correct_data == 6) {
 			$date = date('Y-m-d', strtotime("+7 day"));
-			$stmt = $this->_db->query("UPDATE words SET correct = correct +1, next_date = '".$date."', updated = '".$today."' WHERE id = $id");
+			$stmt = $this->_db->query("UPDATE words SET correct = correct +1, next_date = '".$date."', updated = '".$today."', answer = 0 WHERE id = $id");
 
 		} elseif ($correct_data == 8) {
 			$date = date('Y-m-d', strtotime("+14 day"));
-			$stmt = $this->_db->query("UPDATE words SET correct = correct +1, next_date = '".$date."', updated = '".$today."' WHERE id = $id");
+			$stmt = $this->_db->query("UPDATE words SET correct = correct +1, next_date = '".$date."', updated = '".$today."', answer = 0 WHERE id = $id");
 
 		} elseif ($correct_data == 9) {
 			$date = date('Y-m-d');
-			$stmt = $this->_db->query("UPDATE words SET next_date = '".$date."' next_date = NULL WHERE id = $id");
+			$stmt = $this->_db->query("UPDATE words SET next_date = '".$date."' next_date = NULL, answer = 0 WHERE id = $id");
 		}
 
 		$stmt->execute();
@@ -140,9 +145,9 @@ class Model {
 		$today = date('Y-m-d');
 
 		if ($correct_data <= 4) {
-			$stmt = $this->_db->query("UPDATE words SET correct = 0, next_date = '".$date."', updated = '".$today."' WHERE id = $id");
+			$stmt = $this->_db->query("UPDATE words SET correct = 0, next_date = '".$date."', updated = '".$today."', answer = 1 WHERE id = $id");
 		} elseif ($correct_data >= 6) {
-			$stmt = $this->_db->query("UPDATE words SET correct = 2, next_date = '".$date."', updated = '".$today."' WHERE id = $id");
+			$stmt = $this->_db->query("UPDATE words SET correct = 2, next_date = '".$date."', updated = '".$today."', answer = 1 WHERE id = $id");
 		}
 
 		$stmt->execute();

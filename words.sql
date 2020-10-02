@@ -14,6 +14,8 @@ ALTER TABLE words ADD updated DATE;
 ALTER TABLE words ADD part_of_speach2 TINYINT UNSIGNED AFTER japanese;
 ALTER TABLE words ADD japanese2 TEXT AFTER part_of_speach2;
 
+ALTER TABLE words ADD answer TINYINT UNSIGNED AFTER correct;
+
 insert into words (word, part_of_speach, japanese, category, memo, next_date, correct) values
 -- part_of_speach　１：名詞　２：動詞　３：形容詞　４：副詞　５：句動詞　９：他
 -- category　１：Daily　２：Conversation　３：Academic　４：Writing　５：Economy　６：Tech

@@ -9,6 +9,9 @@ $words = $reviewer->getToday();
 
 <?php include('./header.php'); ?>
 
+<p id="incorrecr_today" class="word_disp-none" onclick="switchShowWords()">不正解のみ表示する</p>
+<p id="correcr_today" onclick="switchShowWords()">全て表示する</p>
+
 <table>
 
 <?php
@@ -16,7 +19,9 @@ $words = $reviewer->getToday();
 $i = 1;
 
 foreach($words as $word) {
-	echo "<tr id='words'>";
+	echo "<tr id='words' ";
+	if($word->answer == 0 || $word->answer == NULL){ echo "class='today_correct word_disp-none'"; }
+	echo ">";
 
 		echo "<td class='right_side'><a href='revision.php?id=".$word->id."'><button><i class='fas fa-pen'></i></button></a></td>";
 		echo "<td class='speach' data-word='$word->word'><button><i class='fas fa-volume-up'></i></i></button></td>";
