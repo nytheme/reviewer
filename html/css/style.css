@@ -47,6 +47,19 @@ th:hover {
 	color: blue;
 }
 
+.correctResult {
+	display: none;
+}
+
+.incorrectResult {
+	display: none;
+}
+
+.result-color {
+	color: red;
+}
+
+
 .disp-none {
 	display: none;
 }

@@ -46,7 +46,11 @@
 		let id = $(this).data('id');
 		let correct_data = $(this).data('correct');
 		correct(id, correct_data);
-		$(this).css('color', 'red');
+		let dispNone = $(this).closest('tr').find('.correctResult');
+		let incorrectBtn = $(this).closest('tr').find('.incorrect');
+		incorrectBtn.remove();
+		dispNone.removeClass();
+		$(this).remove();
 	});
 
 	$('.incorrect').on('click', function() {
@@ -54,6 +58,11 @@
 		let correct_data = $(this).data('correct');
 		incorrect(id, correct_data);
 		$(this).css('color', 'red');
+		let dispNone = $(this).closest('tr').find('.incorrectResult');
+		let correctBtn = $(this).closest('tr').find('.correct');
+		correctBtn.remove();
+		dispNone.removeClass();
+		$(this).remove();
 	});
 
 }

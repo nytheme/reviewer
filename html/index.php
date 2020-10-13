@@ -28,73 +28,80 @@ $words = $reviewer->getAll();
 
 <?php include('./header.php'); ?>
 
-<table>
+<?php if (count($words) == 0) :?> 
+	<p style="margin-left: 3em;">本日復習する単語はありません</p>
 
-<?php
+<?php else : ?>
+	<table>
 
-$i = 1;
+	<?php
 
-foreach($words as $word) {
-	echo "<tr id='words'>";
+	$i = 1;
 
-		echo "<td class='right_side'><a href='revision.php?id=".$word->id."'><button><i class='fas fa-pen'></i></button></a></td>";
-		echo "<td class='speach' data-word='$word->word'><button><i class='fas fa-volume-up'></i></i></button></td>";
-		echo "<td><button class='correct' data-id='".$word->id."' data-correct='".$word->correct."'><i class='far fa-circle'></i></button></td>";
-		echo "<td><button class='incorrect' data-id='".$word->id."' data-correct='".$word->correct."'><i class='fas fa-times'></i></button></td>";
-		
-		echo "<th class='jap_".$i."' onclick='openAnswer(this);return false;'>" . h($word->word) . "</th>";
+	foreach($words as $word) {
+		echo "<tr id='words'>";
 
-		echo "<td class='disp-none'>";
+			echo "<td class='right_side'><a href='revision.php?id=".$word->id."'><button><i class='fas fa-pen'></i></button></a></td>";
+			echo "<td class='speach' data-word='$word->word'><button><i class='fas fa-volume-up'></i></button></td>";
+			echo "<td><button class='correctResult'><i class='far fa-circle result-color'></i></button><button class='correct' data-id='".$word->id."' data-correct='".$word->correct."'><i class='far fa-circle'></i></button></td>";
+			echo "<td><button class='incorrectResult'><i class='fas fa-times result-color'></i></button><button class='incorrect' data-id='".$word->id."' data-correct='".$word->correct."'><i class='fas fa-times'></i></button></td>";
+			
+			echo "<th class='jap_".$i."' onclick='openAnswer(this);return false;'>" . h($word->word) . "</th>";
 
-		if ($word->part_of_speach == 1) {
-			echo "【名】 ";
-		} elseif ($word->part_of_speach == 2) {
-			echo "【動】 ";
-		} elseif ($word->part_of_speach == 3) {
-			echo "【形】 ";
-		} elseif ($word->part_of_speach == 4) {
-			echo "【副】 ";
-		} elseif ($word->part_of_speach == 5) {
-			echo "【句】 ";
-		} elseif ($word->part_of_speach == 9) {
-			echo "【他】 ";
-		}
-		echo h($word->japanese);
+			echo "<td class='disp-none'>";
 
-		if ($word->part_of_speach2 == 1) {
-			echo "【名】 ";
-		} elseif ($word->part_of_speach2 == 2) {
-			echo "【動】 ";
-		} elseif ($word->part_of_speach2 == 3) {
-			echo "【形】 ";
-		} elseif ($word->part_of_speach2 == 4) {
-			echo "【副】 ";
-		} elseif ($word->part_of_speach2 == 5) {
-			echo "【句】 ";
-		} elseif ($word->part_of_speach2 == 9) {
-			echo "【他】 ";
-		}
-		echo h($word->japanese2);
+			if ($word->part_of_speach == 1) {
+				echo "【名】 ";
+			} elseif ($word->part_of_speach == 2) {
+				echo "【動】 ";
+			} elseif ($word->part_of_speach == 3) {
+				echo "【形】 ";
+			} elseif ($word->part_of_speach == 4) {
+				echo "【副】 ";
+			} elseif ($word->part_of_speach == 5) {
+				echo "【句】 ";
+			} elseif ($word->part_of_speach == 9) {
+				echo "【他】 ";
+			}
+			echo h($word->japanese);
 
-		echo "</td>";
+			if ($word->part_of_speach2 == 1) {
+				echo "【名】 ";
+			} elseif ($word->part_of_speach2 == 2) {
+				echo "【動】 ";
+			} elseif ($word->part_of_speach2 == 3) {
+				echo "【形】 ";
+			} elseif ($word->part_of_speach2 == 4) {
+				echo "【副】 ";
+			} elseif ($word->part_of_speach2 == 5) {
+				echo "【句】 ";
+			} elseif ($word->part_of_speach2 == 9) {
+				echo "【他】 ";
+			}
+			echo h($word->japanese2);
 
-		// echo "<td>" . $word->category . "</td>";
-		// echo "<td>" . $word->memo . "</td>";
-		echo "<td class='right_side'>" . $word->next_date . "</td>";
-		echo "<td class='right_side'>" . $word->correct . "</td>";
-		echo "<td class='right_side'>" . $word->updated . "</td>";
-		
-	echo "</tr>";
+			echo "</td>";
 
-	$i++;
-}
+			// echo "<td>" . $word->category . "</td>";
+			// echo "<td>" . $word->memo . "</td>";
+			// echo "<td class='right_side'>" . $word->next_date . "</td>";
+			echo "<td class='right_side'>" . $word->correct . "</td>";
+			// echo "<td class='right_side'>" . $word->updated . "</td>";
+			
+		echo "</tr>";
 
-?>
+		$i++;
+	}
 
-</table>
+	?>
 
-<div class="pagenation">
-	<?php $reviewer->pagenation(); ?>
-</div>
+	</table>
+
+	<div class="pagenation">
+		<?php $reviewer->pagenation(); ?>
+	</div>
+<?php endif ;?>
+
+<div>登録単語数は <?= $reviewer->counter()[0]; ?> 個</div>
 
 <?php include('./footer.php'); ?>

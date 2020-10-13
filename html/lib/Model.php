@@ -62,7 +62,13 @@ class Model {
 				echo "<a href=?page=".$i.">".$i."</a>";
 			}
 		}
+	}
 
+	//登録されている単語数をカウント
+	public function counter() {
+		//削除された単語(id)はカウントしない
+		$stmt = $this->_db->query("SELECT count(word) from words");
+		return $stmt->fetch();
 	}
 
 	//編集ページ用に一件だけ表示
@@ -125,8 +131,12 @@ class Model {
 		} elseif ($correct_data == 8) {
 			$date = date('Y-m-d', strtotime("+14 day"));
 			$stmt = $this->_db->query("UPDATE words SET correct = correct +1, next_date = '".$date."', updated = '".$today."', answer = 0 WHERE id = $id");
+	
+		} elseif ($correct_data == 10) {
+			$date = date('Y-m-d', strtotime("+30 day"));
+			$stmt = $this->_db->query("UPDATE words SET correct = correct +1, next_date = '".$date."', updated = '".$today."', answer = 0 WHERE id = $id");
 
-		} elseif ($correct_data == 9) {
+		} elseif ($correct_data == 12) {
 			$date = date('Y-m-d');
 			$stmt = $this->_db->query("UPDATE words SET next_date = '".$date."' next_date = NULL, answer = 0 WHERE id = $id");
 		}
